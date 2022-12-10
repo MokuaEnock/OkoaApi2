@@ -5,3 +5,16 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+roles =
+  Role.create do
+    [
+      { name: "Disposer", description: "Individual users who dispose waste" },
+      {
+        name: "Partner",
+        description: "Organizations that dispose or buy waste"
+      },
+      { name: "Collector", description: "Individual users who collect waste" },
+      { name: "Buyer", description: "Farmers that buy compost" }
+    ]
+  end
