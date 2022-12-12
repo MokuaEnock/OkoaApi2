@@ -6,7 +6,6 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-
 Role.create(name: "Disposer", description: "Individual users who dispose waste")
 Role.create(
   name: "Partner",
@@ -17,3 +16,12 @@ Role.create(
   description: "Individual users who collect waste"
 )
 Role.create(name: "Buyer", description: "Farmers that buy compost")
+
+User.create(
+  username: "mokua",
+  role_id: 2,
+  first_name: "Enock",
+  last_name: "Mokua",
+  email: "mokua@gmail.com",
+  password_digest: "hshhshshshhsh"
+)
