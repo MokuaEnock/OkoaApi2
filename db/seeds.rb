@@ -19,7 +19,7 @@ Role.create(name: "Buyer", description: "Farmers that buy compost")
 
 User.create(
   username: "mokua",
-  role_id: 2,
+  # role_id: 2,
   first_name: "Enock",
   last_name: "Mokua",
   email: "mokua@gmail.com",
