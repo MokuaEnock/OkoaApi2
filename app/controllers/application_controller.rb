@@ -1,20 +1,51 @@
 class ApplicationController < ActionController::API
-  include JwtToken
+  SECRET = "yoursecretword"
 
-  before_action :authenticate_user
+  def authentication
+    # making a request to a secure route, token must be included in the headers
+    decode_data = decode_user_data(request.headers["token"])
+    # getting user id from a nested JSON in an array.
+    user_data = decode_data[0]["user_id"] unless !decode_data
+    # find a user in the database to be sure token is for a real user
+    user = User.find(user_data&.id)
 
-  private
+    # The barebone of this is to return true or false, as a middleware
+    # its main purpose is to grant access or return an error to the user
 
-  def authenticate_user
-    header = request.headers["Authorization"]
-    header = header.split(" ").last if header
+    if user
+      return true
+    else
+      render json: { message: "invalid credentials" }
+    end
+  end
+
+  # turn user data (payload) to an encrypted string  [ A ]
+  def encode_user_data(payload)
+    token = JWT.encode payload, SECRET, "HS256"
+    return token
+  end
+
+  # turn user data (payload) to an encrypted string  [ B ]
+  def encode_user_data(payload)
+    JWT.encode payload, SECRET, "HS256"
+  end
+
+  # decode token and return user info, this returns an array, [payload and algorithms] [ A ]
+  def decode_user_data(token)
     begin
-      @decode = JwtToken.decode(header)
-      @current_user = User.find(@decoded[:user_id])
-    rescue ActiveRecord::RecordNotFound => e
-      render json: { errors: e.message }, status: :unauthorized
-    rescue Jwt::DecodeError => e
-      render json: { errors: e.message }, status: :unauthorized
+      data = JWT.decode token, SECRET, true, { algorithm: "HS256" }
+      return data
+    rescue => e
+      puts e
+    end
+  end
+
+  # decode token and return user info, this returns an array, [payload and algorithms] [ B ]
+  def decode_user_data(token)
+    begin
+      JWT.decode token, SECRET, true, { algorithm: "HS256" }
+    rescue => e
+      puts e
     end
   end
 end
