@@ -20,6 +20,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    unless @user.update(user_params)
+      render json: { errors: @user.errors.full_messages }, status: 503
+    end
+  end
+
+  def destroy
+    @user.destroy
+  end
+
   private
 
   def user_params

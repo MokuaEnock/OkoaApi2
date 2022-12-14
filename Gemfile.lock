@@ -180,7 +180,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   debug
-  jwt
+  jwt (~> 2.2)
   puma (~> 5.0)
   rails (~> 7.0.4)
   ruby-lsp (~> 0.3.6)

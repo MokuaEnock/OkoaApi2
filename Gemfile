@@ -47,6 +47,6 @@ group :development do
 end
 gem "active_model_serializers", "~> 0.10.12"
 
-gem "jwt"
+gem "jwt", "~> 2.2"
 
 gem "ruby-lsp", "~> 0.3.6", :group => :development
